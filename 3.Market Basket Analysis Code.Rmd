@@ -1,12 +1,5 @@
----
-title: 'Acquisition Opportunities and Challenges of Electronidex Market Basket Analysis
-  of Electronidex'
-output:
-  html_document:
-    df_print: paged
-  pdf_document: default
-date: "2023-05-20"
----
+# NOTE: TO VIEW THE HTML WIDGET AND THE WHOLE PROJECT, ACCESS THE LINK TO THIS PROJECT IN RPub, hosted below: 
+
 # 'Link to RPub: https://rpubs.com/ArnauAndrews/1054466
 
 # 'Acquisition Opportunities and Challenges of Electronidex Market Basket Analysis of Electronidex'
