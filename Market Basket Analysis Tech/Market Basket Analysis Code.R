@@ -1,0 +1,1094 @@
+---
+  title: 'Acquisition Opportunities and Challenges of Electronidex Market Basket Analysis
+  of Electronidex'
+output:
+  html_document:
+  df_print: paged
+pdf_document: default
+date: "2023-05-20"
+---
+  # 'Link to RPub: https://rpubs.com/ArnauAndrews/1054466
+  
+  # 'Acquisition Opportunities and Challenges of Electronidex Market Basket Analysis of Electronidex'
+  
+  ## Unveiling Insights from Customer Purchase Patterns
+  
+  ## **R Markdown**
+  
+  Students will continue to work as data analysts at Blackwell Electronics. Their job is to extend Blackwell's application of data mining methods to develop predictive models.
+
+In this course, students will use the R statistical programming language augmented with machine learning packages to predict different product types a customer will be likely to buy. Next, students will create a recommender system that recommends additional purchases based on customer choices. Finally, students will present to management, explaining their insights and suggestions for data mining process improvements.
+
+## Task
+
+Market Basket Analysis Hi,
+
+Blackwell Electronics' board of directors is considering acquiring Electronidex, a start-up electronics online retailer. The board of directors has asked us to help them better understand the clientele that Electronidex currently is serving and if it would be an optimal partnership.
+
+They need our help to identify purchasing patterns that will provide insight into Electronidex's clientele. Attached is a CSV file that contains one month's (30 days' worth) of Electronidexes online transactions and a file containing all the electronics that they currently sell. Due to their lack of funding, Electronidex is only able to pull data on the items that customers purchased per their transactions.
+
+I would like you to to use R to conduct a market basket analysis. You will be discovering any interesting relationships (or associations) between customer's transactions and the item(s) they've purchased. These associations can then be used to drive sales-oriented initiatives such as recommender systems like the ones used by Amazon and other eCommerce sites.
+
+To help Blackwell's board of directors form a clearer picture of Electronidex's customer buying patterns, please consider the following questions while you're performing your analysis:
+                                                                                                                                                                
+                                                                                                                                                                -   **Are there any interesting patterns or item relationships within Electronidex's transactions?**
+-   **Would Blackwell benefit from selling any of Electronidex's items?**
+                                                                                                                                                                -   **In your opinion, should Blackwell acquire Electronidex?**
+                                                                                                                                                                -   **If Blackwell does acquire Electronidex, do you have any recommendations for Blackwell? (Ex: cross-selling items, sale promotions, should they remove items, etc.)**
+                                                                                                                                                                
+                                                                                                                                                                Once you've completed your market basket analysis, please put together a formal business report in Word. Thank you in advance!
+
+Best,
+
+Danielle Sherman Chief Technology Officer Blackwell Electronics www.blackwellelectronics.com
+
+### Loading and installing required packages
+
+```{r}
+suppressPackageStartupMessages(library(arulesViz))
+suppressPackageStartupMessages(library(arules))
+suppressPackageStartupMessages(library(tidyverse))
+library(readxl)
+library(knitr)
+library(ggplot2)
+library(lubridate)
+library(rmarkdown)
+library(stringr)
+library(RColorBrewer)
+```
+
+### Loading Datasets
+
+```{r}
+df_product <- read.csv("ElectronidexTransactions2017.csv", header = FALSE, sep = ",")
+product <- read.transactions("ElectronidexTransactions2017.csv", format = "basket", sep = ",")
+blackwellold <- read.csv("existingproductattributes2017.csv")
+blackwellnew <- read.csv("newproductattributes2017.csv")
+Product_Equivalence <- read.csv("product.csv", header = TRUE, sep = ";")
+```
+
+NOTE:
+
+-   **ElectronidexTransactions.csv, is a record of one month's (30 days' worth) of 9835 online transactions and which items were purchased out of the 125 products Electronidex sells.**
+
+-   **The file, product.csv, is an equivalence list between the Product and Category sold by Electronidex, with 125 products that Electronidex sells broken down into 17 product types.**
+
+### Equivalence dataframe
+
+```{r}
+
+equivalence <- data.frame(
+  Category_Blackwell = c(
+    "NULL", "PC & Laptop & Netbook", "Accessories", "Software", "Display", "Printer",
+    "Printer Supplies", "Extended Warranty", "Tablet", "Smartphone", "Game Console", "NULL",
+    "NULL", "NULL", "NULL", "NULL"
+  ),
+  Category_Electronidex = c(
+    "Desktop", "Laptop",
+    "Accessories, Computer Stands, Mouse and Keyboard Combo, Computer Cords, Computer Mice, Keyboard",
+    "NULL", "Monitors", "Printer", "Printer Ink", "NULL", "Computer Tablets", "NULL",
+    "NULL", "Speakers", "External Hard Drives", "Smart Home Devices",
+    "Computer Headphones", "Active Headphones"
+  )
+)
+equivalence
+
+```
+
+Comment:
+
+-   This **equivalence** table serves as a guidethrough to understand the categories present in Blackwell's category potfolio which are also present in Electronidex. They are several categoriws which are NULL, which means that they do not have a correspondent equivalent, these are values in which the category is present in one of the stores but not on the other and viceversa.
+                                                                                                                                                              
+                    
+                                                                                                                                                              
+                                                                                                                                                              
+# Preprocessing
+
+r}
+# Create an empty dataframe for df_copy
+
+df_category <- data.frame(matrix(nrow = nrow(Product_Equivalence), ncol = ncol(Product_Equivalence)))
+```
+
+```{r echo = T, results = 'hide'}
+
+# Create an empty dataframe df_category with the same dimensions as df_product
+df_category <- data.frame(matrix(nrow = nrow(df_product), ncol = ncol(df_product)))
+
+# Loop through the indices of df_product
+#for (i in 1:nrow(df_product)) {
+#  try({
+#    for (e in 1:ncol(df_product)) {
+#      print(i)
+#      if (nchar(str_trim(df_product[i, e])) == 0) {
+#        df_category[i, e] <- df_product[i, e]
+#      } else {
+#        df_category[i, e] <- Product_Equivalence[which(Product_Equivalence$producto == str_trim(df_product[i, e])), 1]
+#        print(str_trim(df_product[i, e]))
+#        print(Product_Equivalence[which(Product_Equivalence$producto == str_trim(df_product[i, e])), 1])
+#      }                                                                                                                                                              #  })
+                                                                                                                                                              #}
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              #Write df_copy to a CSV file
+                                                                                                                                                              #write.csv(df_category, "category.csv", row.names = FALSE)
+                                                                                                                                                              
+                                                                                                                                                              # Read transactions from the CSV file into category
+                                                                                                                                                              df_category <- read.csv("category.csv", sep = ",")
+                                                                                                                                                              category <- read.transactions("category.csv", format = "basket", sep = ",")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              COMMENT:
+                                                                                                                                                                
+                                                                                                                                                                Based on the information above:
+                                                                                                                                                                
+                                                                                                                                                                -   df represents the data in the file "ElectronidexTransactions.csv". It contains records of 9835 online transactions that occurred over a period of 30 days. Each transaction entry includes information about the purchased items from the 125 products sold by Electronidex.
+                                                                                                                                                              
+                                                                                                                                                              -   dfproduct represents the data in the file "product.csv". It is an equivalence list that maps the products sold by Electronidex to their respective categories. It contains 125 rows, each representing a product, and includes information about the category to which each product belongs. The categories are broken down into 17 product types.
+                                                                                                                                                              
+                                                                                                                                                              **The purpose of the code is to create a copy of the df dataframe named df_copy with corresponding category information from dfproduct.** The code iterates over each row and column of df, checks if the value in df is empty, and if not, searches for the matching product in dfproduct. It then assigns the corresponding category value from dfproduct to the df_copy dataframe.
+                                                                                                                                                              
+                                                                                                                                                              **This code essentially enhances the df dataframe by including the category information from dfproduct, providing a more comprehensive representation of the transactions with the corresponding product categories.**
+                                                                                                                                                                
+                                                                                                                                                                # Exploratory Data Analysis Category - Using the arules and arulesviz package.
+                                                                                                                                                                
+                                                                                                                                                                ```{r}
+                                                                                                                                                              # Exploratory Data Analysis (EDA) - category
+                                                                                                                                                              
+                                                                                                                                                              # View the transactions in category
+                                                                                                                                                              
+                                                                                                                                                              #inspect(category)
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of transactions
+                                                                                                                                                              length(category)  # 9836 Number of transactions.
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of items per transaction
+                                                                                                                                                              #size(category)  # Number of items per transaction
+                                                                                                                                                              
+                                                                                                                                                              # List the transactions by conversion (LIST must be capitalized)
+                                                                                                                                                              #LIST(category)
+                                                                                                                                                              
+                                                                                                                                                              # View the item labels
+                                                                                                                                                              #itemLabels(category)
+                                                                                                                                                              
+                                                                                                                                                              # Summary statistics of the category
+                                                                                                                                                              #summary(category)
+                                                                                                                                                              
+                                                                                                                                                              # Item frequency plot for the category
+                                                                                                                                                              
+                                                                                                                                                              itemFrequencyPlot(category, topN = 17, type = "absolute", col = brewer.pal(8, 'Pastel2'), main = "Absolute Item Frequency for Category")
+                                                                                                                                                              
+                                                                                                                                                              category
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # Exploratory Data Analysis (EDA) - product
+                                                                                                                                                              
+                                                                                                                                                              # View the transactions in product
+                                                                                                                                                              
+                                                                                                                                                              #inspect(product)
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of transactions
+                                                                                                                                                              length(product)  # 9836 Number of transactions.
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of items per transaction
+                                                                                                                                                              #size(product)  # Number of items per transaction
+                                                                                                                                                              
+                                                                                                                                                              # List the transactions by conversion (LIST must be capitalized)
+                                                                                                                                                              #LIST(product)
+                                                                                                                                                              
+                                                                                                                                                              # View the item labels
+                                                                                                                                                              #itemLabels(product)
+                                                                                                                                                              
+                                                                                                                                                              # Summary statistics of the product
+                                                                                                                                                              #summary(product)
+                                                                                                                                                              
+                                                                                                                                                              # Item frequency plot for the product
+                                                                                                                                                              if (!require("RColorBrewer")) {
+                                                                                                                                                                install.packages("RColorBrewer")
+                                                                                                                                                                library(RColorBrewer)
+                                                                                                                                                              }
+                                                                                                                                                              itemFrequencyPlot(product, topN = 30, type = "absolute", col = brewer.pal(8, 'Pastel2'), main = "Absolute Item Frequency for Product")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              rules_cat <- apriori(category, parameter = list(supp=0.005, conf=0.5))
+                                                                                                                                                              rules_cat<- subset(rules_cat, lift > 1)
+                                                                                                                                                              rules_cat <- sort(rules_cat, by='supp', decreasing = TRUE)
+                                                                                                                                                              rules_cat <- rules_cat[!is.redundant(rules_cat)] 
+                                                                                                                                                              gi <- generatingItemsets(rules_cat)
+                                                                                                                                                              d <- which(duplicated(gi))
+                                                                                                                                                              rules_cat<-rules_cat[-d]
+                                                                                                                                                              summary(rules_cat)
+                                                                                                                                                              
+                                                                                                                                                              plot(rules_cat, measure = c("support", "confidence"), shading = "lift")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              topRules <- rules_cat[1:5]
+                                                                                                                                                              plot(topRules, jitter=0)
+                                                                                                                                                              plot(head(sort(topRules, by = "lift")), method = "graph")
+                                                                                                                                                              plot(topRules, method="grouped")
+                                                                                                                                                              plot(topRules)
+                                                                                                                                                              inspectDT(topRules)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              rules_prod <- apriori(product, parameter = list(supp=0.01, conf=0.25))
+                                                                                                                                                              rules_prod <- subset(rules_prod, lift > 1)
+                                                                                                                                                              rules_prod <- sort(rules_prod, by='lift', decreasing = TRUE)
+                                                                                                                                                              rules_prod <- rules_prod[!is.redundant(rules_prod)] 
+                                                                                                                                                              summary(rules_prod)
+                                                                                                                                                              gi <- generatingItemsets(rules_prod)
+                                                                                                                                                              d <- which(duplicated(gi))
+                                                                                                                                                              rules_prod <-rules_prod[-d]
+                                                                                                                                                              summary(rules_prod)
+                                                                                                                                                              
+                                                                                                                                                              plot(rules_prod, measure = c("support", "confidence"), shading = "lift")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              topRules <- rules_prod[1:9]
+                                                                                                                                                              plot(topRules, jitter=0)
+                                                                                                                                                              plot(head(sort(topRules, by = "lift"), 22), method = "graph")
+                                                                                                                                                              plot(topRules, method="grouped")
+                                                                                                                                                              plot(topRules)
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              inspectDT(rules_prod)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Cat_Rules1 <- subset(rules_cat, items %in% "desktop")
+                                                                                                                                                              CatRules1 <- sort(Cat_Rules1, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_categories <- head(CatRules1, 5)
+                                                                                                                                                              head(top5_categories)
+                                                                                                                                                              plot(top5_categories)
+                                                                                                                                                              inspectDT(top5_categories)
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              COMMENT:
+                                                                                                                                                                
+                                                                                                                                                                **Desktop is the most popular category bought in Electronidex by far.**
+                                                                                                                                                                
+                                                                                                                                                                **A staggering 20% of transactions are from people who buy a laptop and then a desktop**
+                                                                                                                                                                
+                                                                                                                                                                **This is closely followed by a 17% of people who buy a monitor which will then also buy a desktop**
+                                                                                                                                                                
+                                                                                                                                                                ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Cat_Rules2 <- subset(rules_cat, items %in% "laptop")
+                                                                                                                                                              CatRules2 <- sort(Cat_Rules2, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_categories <- head(CatRules2, 5)
+                                                                                                                                                              head(top5_categories)
+                                                                                                                                                              plot(top5_categories)
+                                                                                                                                                              inspectDT(top5_categories)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              Comment:
+                                                                                                                                                                
+                                                                                                                                                                **Laptop is the second most bought category. It is interesting to note that 15% of the purchases include buying a monitor which turns into buying a laptop.**
+                                                                                                                                                                
+                                                                                                                                                                **This is closely followed by a 12% who buy a computer mice which will then also buy a laptop**
+                                                                                                                                                                
+                                                                                                                                                                ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Cat_Rules3 <- subset(rules_cat, items %in% "monitors")
+                                                                                                                                                              CatRules3 <- sort(Cat_Rules3, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_categories <- head(CatRules3, 5)
+                                                                                                                                                              head(top5_categories)
+                                                                                                                                                              plot(top5_categories)
+                                                                                                                                                              inspectDT(top5_categories)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              Comment:
+                                                                                                                                                                
+                                                                                                                                                                -   **Monitors is the third most bought category.**
+                                                                                                                                                                
+                                                                                                                                                                -   It is interesting to note that 10% of the purchases include buying a computer mice will also buy a monitorwhich turns into buying a laptop.
+                                                                                                                                                              
+                                                                                                                                                              -   This is closely followed by a 9% who buy a keyboard which will then also buy a laptop
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              rules_product <- apriori(product, parameter = list(support = 0.01, confidence = 0.5))
+                                                                                                                                                              sorted_rules <- sort(rules_product, by = "support", decreasing = TRUE)
+                                                                                                                                                              sorted_rules
+                                                                                                                                                              top5_products <- head(sorted_rules, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Item_Rules<- subset(rules_product, items %in% "iMac")
+                                                                                                                                                              ItemRules <- sort(Item_Rules, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_products <- head(ItemRules, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Item_Rules1<- subset(rules_product, items %in% "HP Laptop")
+                                                                                                                                                              ItemRules1 <- sort(Item_Rules1, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_products <- head(ItemRules1, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Item_Rules2<- subset(rules_product, items %in% "CYBERPOWER Gamer Desktop")
+                                                                                                                                                              ItemRules2 <- sort(Item_Rules2, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_products <- head(ItemRules2, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              #2.Would Blackwell benefit from buying Electronidex?
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              ItemRules3 <- subset(rules_cat, items %in% "Speakers")
+                                                                                                                                                              sorted_ItemRules3<- sort(ItemRules3, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_Speakers <- head(sorted_ItemRules3, 5)
+                                                                                                                                                              head(top5_Speakers)
+                                                                                                                                                              plot(top5_Speakers)
+                                                                                                                                                              inspectDT(top5_Speakers)
+                                                                                                                                                              
+                                                                                                                                                              ItemRules4 <- subset(rules_cat, items %in% "External Hardrives")
+                                                                                                                                                              sorted_ItemRules4<- sort(ItemRules4, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_External_Hardrives <- head(sorted_ItemRules4, 5)
+                                                                                                                                                              head(top5_External_Hardrives)
+                                                                                                                                                              plot(top5_External_Hardrives)
+                                                                                                                                                              inspectDT(top5_External_Hardrives)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              unique(df_new)
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              categories_dict <- c("laptop" = 1650, "desktop" = 1750, "monitors" = 300, "Computer Tablets" = 500, "Computer Mice" = 80, "Keyboard" = 300, 
+                                                                                                                                                                                   "Mouse and Keyboard Combo" = 400, "Active Headphones" = 100, "Computer Headphones" = 150, "Computer Cords" = 30, 
+                                                                                                                                                                                   "Computer Stands" = 60, "Accessories" = 70, "Speakers" = 200, "Printers" = 100, "Printer Ink" = 30, 
+                                                                                                                                                                                   "External Hardrives" = 120, "Smart Home Devices" = 50)
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              df_category$Average_Price_Category_Transaction <- NA  # Create an empty "Category" column
+                                                                                                                                                              
+                                                                                                                                                              # Iterate through each row and replace "Category" values based on matching keys in categories_dict
+                                                                                                                                                              for (i in 1:nrow(df_category)) {
+                                                                                                                                                                categories <- unique(unlist(df_category[i,]))
+                                                                                                                                                                categories <- categories[!is.na(categories) & categories %in% names(categories_dict)]
+                                                                                                                                                                if (length(categories) > 0) {
+                                                                                                                                                                  df_category$Average_Price_Category_Transaction[i] <- sum(categories_dict[categories])
+                                                                                                                                                                }
+                                                                                                                                                              }
+                                                                                                                                                              
+                                                                                                                                                              df_category$Average_Price_Category <- rowSums(df_category[, "Average_Price_Category_Transaction", drop = FALSE], na.rm = TRUE)  # Calculate the row sum for the "Category" column
+                                                                                                                                                              
+                                                                                                                                                              df_category$Average_Price_Category_Transaction <- as.numeric(as.character(df_category$Average_Price_Category_Transaction))
+                                                                                                                                                              
+                                                                                                                                                              df_category <- na.omit(df_category)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              summary(df_category$Average_Price_Category_Transaction)
+                                                                                                                                                              hist(df_category$Average_Price_Category_Transaction)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              # Initialize the Pricing Strategy column
+                                                                                                                                                              df_category$Range <- ""
+                                                                                                                                                              
+                                                                                                                                                              # Set the threshold for transactions made by companies
+                                                                                                                                                              
+                                                                                                                                                              # Assign the pricing strategy categories based on the price values and transaction type
+                                                                                                                                                              df_category$Range[df_category$Range < 30] <- "Very Low Price (Light)"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 30 & df_category$Average_Price_Category_Transaction < 150] <- "Low"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 150 & df_category$Average_Price_Category_Transaction < 500] <- "Standard"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 500 & df_category$Average_Price_Category_Transaction < 1250] <- "Mid-High Price"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 1250 & df_category$Average_Price_Category_Transaction < 2000] <- "High Price"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 2000 & df_category$Average_Price_Category_Transaction < 3000] <- "Premium"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 3000] <- "B2B"
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # Count the frequency of each range category
+                                                                                                                                                              range_counts <- table(df_category$Range)
+                                                                                                                                                              
+                                                                                                                                                              # Sort the range_counts in descending order
+                                                                                                                                                              range_counts <- sort(range_counts, decreasing = TRUE)
+                                                                                                                                                              
+                                                                                                                                                              # Create a vertical bar plot with ordered categories
+                                                                                                                                                              barplot(range_counts, main = "Range Distribution", xlab = "Range", ylab = "Count", col = "steelblue", ylim = c(0, max(range_counts)))
+                                                                                                                                                              
+                                                                                                                                                              # Calculate the percentage of each range category
+                                                                                                                                                              percentage <- round((range_counts / sum(range_counts)) * 100, 1)
+                                                                                                                                                              
+                                                                                                                                                              # Create a cross-tabulation table with percentages
+                                                                                                                                                              cross_tab <- prop.table(range_counts) * 100
+                                                                                                                                                              cross_tab <- round(cross_tab, 1)
+                                                                                                                                                              
+                                                                                                                                                              # Print the cross-tabulation table
+                                                                                                                                                              cat("\nCross-Tabulation of Range with Percentages:\n")
+                                                                                                                                                              print(cross_tab)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # df_category$Rules <- "Other"
+                                                                                                                                                              # 
+                                                                                                                                                              # for (i in 1:nrow(df_product)) {
+                                                                                                                                                              #   if (sum(grepl("Laptop", df_product[i, ]) | grepl("Desktop", df_product[i, ]) | grepl("Monitor", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Keyboard", df_product[i, ]) | grepl("Computer Mice", df_product[i, ]) | grepl("Computer Cords", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Mouse and Keyboard Combo", df_product[i, ]) | grepl("Computer Headphones", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Active Headphones", df_product[i, ]) | grepl("Speakers", df_product[i, ]) | grepl("Printers", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Printer Ink", df_product[i, ]) | grepl("Computer Stands", df_product[i, ]) | grepl("Computer Tablets", df_product[i, ]) |
+                                                                                                                                                              #           grepl("External Hardrives", df_product[i, ]) | grepl("Smart Home Devices", df_product[i, ])) >= 4) {
+                                                                                                                                                              #     df_product$Rules[i] <- "Office"
+                                                                                                                                                              #   }
+                                                                                                                                                              # }
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              # for (i in 1:nrow(df_)) {
+                                                                                                                                                              #   if (sum(
+                                                                                                                                                              #     grepl("Keyboard", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Mice", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Cords", df_product[i,]) |
+                                                                                                                                                              #     grepl("Mouse and Keyboard Combo", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Headphones", df_product[i,]) |
+                                                                                                                                                              #     grepl("Active Headphones", df_product[i,]) |
+                                                                                                                                                              #     grepl("Speakers", df_product[i,]) |
+                                                                                                                                                              #     grepl("Printers", df_product[i,]) |
+                                                                                                                                                              #     grepl("Printer Ink", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Stands", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Tablets", df_product[i,]) |
+                                                                                                                                                              #     grepl("External Hardrives", df_product[i,]) |
+                                                                                                                                                              #     grepl("Smart Home Devices", df_product[i,]) |
+                                                                                                                                                              #     grepl("monitors", df_product[i,])
+                                                                                                                                                              #   ) >= 1) {
+                                                                                                                                                              #     df_product$Rules[i] <- "Casual Buyers"
+                                                                                                                                                              #   }
+                                                                                                                                                              # }
+                                                                                                                                                              
+                                                                                                                                                              # for (i in 1:nrow(df_product)) {
+                                                                                                                                                              #   if (sum(grepl("Laptop", df_product[i,]) | grepl("Desktop", df_product[i,])>= 1) {
+                                                                                                                                                              #     df_product$Rules[i] <- "Computer"
+                                                                                                                                                              #   }
+                                                                                                                                                              # }
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              # # Count the frequency of each range category
+                                                                                                                                                              # range_counts <- table(df_product$Rules)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Sort the range_counts in descending order
+                                                                                                                                                              # range_counts <- sort(range_counts, decreasing = TRUE)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Create a vertical bar plot with ordered categories
+                                                                                                                                                              # barplot(range_counts, main = "Range Distribution", xlab = "Range", ylab = "Count", col = "steelblue", ylim = c(0, max(range_counts)))
+                                                                                                                                                              # 
+                                                                                                                                                              # # Calculate the percentage of each range category
+                                                                                                                                                              # percentage <- round((range_counts / sum(range_counts)) * 100, 1)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Create a cross-tabulation table with percentages
+                                                                                                                                                              # cross_tab <- prop.table(range_counts) * 100
+                                                                                                                                                              # cross_tab <- round(cross_tab, 1)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Print the cross-tabulation table
+                                                                                                                                                              # cat("\nCross-Tabulation of Range with Percentages:\n")
+                                                                                                                                                              # print(cross_tab)
+                                                                                                                                                              ```
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                1.  PC & Laptop = Laptop
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                3.  Accessories
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                4.  Software
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                5.  Display
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                6.  Printer
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                7.  Printer Supplies
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                8.  Extended Warranty
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                9.  Netbook
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                10. Tablet
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                11. Smartphone
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                12. Game Console
+                                                                                                                                                              
+                                                                                                                                                              # Categories present in Electronidex:
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                1.  Desktop
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                2.  Laptop
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                3.  Monitors
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                4.  Computer Mice
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                5.  Keyboard
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                6.  Mouse and Keyboard Combo
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                7.  Computer Headphones
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                8.  Active Headphones
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                9.  Computer Cords
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                10. Accessories
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                11. Speakers
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                12. Printers
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                13. Printer Ink
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                14. Computer Stands
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                15. Computer Tablets
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                16. External Hard Drives
+                                                                                                                                                              
+                                                                                                                                                              -   
+                                                                                                                                                                
+                                                                                                                                                                17. Smart Home Devices
+                                                                                                                                                              
+                                                                                                                                                              # Preprocessing
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # Create an empty dataframe for df_copy
+                                                                                                                                                              
+                                                                                                                                                              df_category <- data.frame(matrix(nrow = nrow(Product_Equivalence), ncol = ncol(Product_Equivalence)))
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r echo = T, results = 'hide'}
+                                                                                                                                                              
+                                                                                                                                                              # Create an empty dataframe df_category with the same dimensions as df_product
+                                                                                                                                                              df_category <- data.frame(matrix(nrow = nrow(df_product), ncol = ncol(df_product)))
+                                                                                                                                                              
+                                                                                                                                                              # Loop through the indices of df_product
+                                                                                                                                                              #for (i in 1:nrow(df_product)) {
+                                                                                                                                                              #  try({
+                                                                                                                                                              #    for (e in 1:ncol(df_product)) {
+                                                                                                                                                              #      print(i)
+                                                                                                                                                              #      if (nchar(str_trim(df_product[i, e])) == 0) {
+                                                                                                                                                              #        df_category[i, e] <- df_product[i, e]
+                                                                                                                                                              #      } else {
+                                                                                                                                                              #        df_category[i, e] <- Product_Equivalence[which(Product_Equivalence$producto == str_trim(df_product[i, e])), 1]
+                                                                                                                                                              #        print(str_trim(df_product[i, e]))
+                                                                                                                                                              #        print(Product_Equivalence[which(Product_Equivalence$producto == str_trim(df_product[i, e])), 1])
+                                                                                                                                                              #      }
+                                                                                                                                                              #    }
+                                                                                                                                                              #  })
+                                                                                                                                                              #}
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              #Write df_copy to a CSV file
+                                                                                                                                                              #write.csv(df_category, "category.csv", row.names = FALSE)
+                                                                                                                                                              
+                                                                                                                                                              # Read transactions from the CSV file into category
+                                                                                                                                                              df_category <- read.csv("category.csv", sep = ",")
+                                                                                                                                                              category <- read.transactions("category.csv", format = "basket", sep = ",")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              COMMENT:
+                                                                                                                                                                
+                                                                                                                                                                Based on the information above:
+                                                                                                                                                                
+                                                                                                                                                                -   df represents the data in the file "ElectronidexTransactions.csv". It contains records of 9835 online transactions that occurred over a period of 30 days. Each transaction entry includes information about the purchased items from the 125 products sold by Electronidex.
+                                                                                                                                                              
+                                                                                                                                                              -   dfproduct represents the data in the file "product.csv". It is an equivalence list that maps the products sold by Electronidex to their respective categories. It contains 125 rows, each representing a product, and includes information about the category to which each product belongs. The categories are broken down into 17 product types.
+                                                                                                                                                              
+                                                                                                                                                              **The purpose of the code is to create a copy of the df dataframe named df_copy with corresponding category information from dfproduct.** The code iterates over each row and column of df, checks if the value in df is empty, and if not, searches for the matching product in dfproduct. It then assigns the corresponding category value from dfproduct to the df_copy dataframe.
+                                                                                                                                                              
+                                                                                                                                                              **This code essentially enhances the df dataframe by including the category information from dfproduct, providing a more comprehensive representation of the transactions with the corresponding product categories.**
+                                                                                                                                                                
+                                                                                                                                                                # Exploratory Data Analysis Category - Using the arules and arulesviz package.
+                                                                                                                                                                
+                                                                                                                                                                ```{r}
+                                                                                                                                                              # Exploratory Data Analysis (EDA) - category
+                                                                                                                                                              
+                                                                                                                                                              # View the transactions in category
+                                                                                                                                                              
+                                                                                                                                                              #inspect(category)
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of transactions
+                                                                                                                                                              length(category)  # 9836 Number of transactions.
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of items per transaction
+                                                                                                                                                              #size(category)  # Number of items per transaction
+                                                                                                                                                              
+                                                                                                                                                              # List the transactions by conversion (LIST must be capitalized)
+                                                                                                                                                              #LIST(category)
+                                                                                                                                                              
+                                                                                                                                                              # View the item labels
+                                                                                                                                                              #itemLabels(category)
+                                                                                                                                                              
+                                                                                                                                                              # Summary statistics of the category
+                                                                                                                                                              #summary(category)
+                                                                                                                                                              
+                                                                                                                                                              # Item frequency plot for the category
+                                                                                                                                                              
+                                                                                                                                                              itemFrequencyPlot(category, topN = 17, type = "absolute", col = brewer.pal(8, 'Pastel2'), main = "Absolute Item Frequency for Category")
+                                                                                                                                                              
+                                                                                                                                                              category
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # Exploratory Data Analysis (EDA) - product
+                                                                                                                                                              
+                                                                                                                                                              # View the transactions in product
+                                                                                                                                                              
+                                                                                                                                                              #inspect(product)
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of transactions
+                                                                                                                                                              length(product)  # 9836 Number of transactions.
+                                                                                                                                                              
+                                                                                                                                                              # Check the number of items per transaction
+                                                                                                                                                              #size(product)  # Number of items per transaction
+                                                                                                                                                              
+                                                                                                                                                              # List the transactions by conversion (LIST must be capitalized)
+                                                                                                                                                              #LIST(product)
+                                                                                                                                                              
+                                                                                                                                                              # View the item labels
+                                                                                                                                                              #itemLabels(product)
+                                                                                                                                                              
+                                                                                                                                                              # Summary statistics of the product
+                                                                                                                                                              #summary(product)
+                                                                                                                                                              
+                                                                                                                                                              # Item frequency plot for the product
+                                                                                                                                                              if (!require("RColorBrewer")) {
+                                                                                                                                                                install.packages("RColorBrewer")
+                                                                                                                                                                library(RColorBrewer)
+                                                                                                                                                              }
+                                                                                                                                                              itemFrequencyPlot(product, topN = 30, type = "absolute", col = brewer.pal(8, 'Pastel2'), main = "Absolute Item Frequency for Product")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              rules_cat <- apriori(category, parameter = list(supp=0.005, conf=0.5))
+                                                                                                                                                              rules_cat<- subset(rules_cat, lift > 1)
+                                                                                                                                                              rules_cat <- sort(rules_cat, by='supp', decreasing = TRUE)
+                                                                                                                                                              rules_cat <- rules_cat[!is.redundant(rules_cat)] 
+                                                                                                                                                              gi <- generatingItemsets(rules_cat)
+                                                                                                                                                              d <- which(duplicated(gi))
+                                                                                                                                                              rules_cat<-rules_cat[-d]
+                                                                                                                                                              summary(rules_cat)
+                                                                                                                                                              
+                                                                                                                                                              plot(rules_cat, measure = c("support", "confidence"), shading = "lift")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              topRules <- rules_cat[1:5]
+                                                                                                                                                              plot(topRules, jitter=0)
+                                                                                                                                                              plot(head(sort(topRules, by = "lift")), method = "graph")
+                                                                                                                                                              plot(topRules, method="grouped")
+                                                                                                                                                              plot(topRules)
+                                                                                                                                                              inspectDT(topRules)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              rules_prod <- apriori(product, parameter = list(supp=0.01, conf=0.25))
+                                                                                                                                                              rules_prod <- subset(rules_prod, lift > 1)
+                                                                                                                                                              rules_prod <- sort(rules_prod, by='lift', decreasing = TRUE)
+                                                                                                                                                              rules_prod <- rules_prod[!is.redundant(rules_prod)] 
+                                                                                                                                                              summary(rules_prod)
+                                                                                                                                                              gi <- generatingItemsets(rules_prod)
+                                                                                                                                                              d <- which(duplicated(gi))
+                                                                                                                                                              rules_prod <-rules_prod[-d]
+                                                                                                                                                              summary(rules_prod)
+                                                                                                                                                              
+                                                                                                                                                              plot(rules_prod, measure = c("support", "confidence"), shading = "lift")
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              topRules <- rules_prod[1:9]
+                                                                                                                                                              plot(topRules, jitter=0)
+                                                                                                                                                              plot(head(sort(topRules, by = "lift"), 22), method = "graph")
+                                                                                                                                                              plot(topRules, method="grouped")
+                                                                                                                                                              plot(topRules)
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              inspectDT(rules_prod)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Cat_Rules1 <- subset(rules_cat, items %in% "desktop")
+                                                                                                                                                              CatRules1 <- sort(Cat_Rules1, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_categories <- head(CatRules1, 5)
+                                                                                                                                                              head(top5_categories)
+                                                                                                                                                              plot(top5_categories)
+                                                                                                                                                              inspectDT(top5_categories)
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              COMMENT:
+                                                                                                                                                                
+                                                                                                                                                                **Desktop is the most popular category bought in Electronidex by far.**
+                                                                                                                                                                
+                                                                                                                                                                **A staggering 20% of transactions are from people who buy a laptop and then a desktop**
+                                                                                                                                                                
+                                                                                                                                                                **This is closely followed by a 17% of people who buy a monitor which will then also buy a desktop**
+                                                                                                                                                                
+                                                                                                                                                                ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Cat_Rules2 <- subset(rules_cat, items %in% "laptop")
+                                                                                                                                                              CatRules2 <- sort(Cat_Rules2, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_categories <- head(CatRules2, 5)
+                                                                                                                                                              head(top5_categories)
+                                                                                                                                                              plot(top5_categories)
+                                                                                                                                                              inspectDT(top5_categories)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              Comment:
+                                                                                                                                                                
+                                                                                                                                                                **Laptop is the second most bought category. It is interesting to note that 15% of the purchases include buying a monitor which turns into buying a laptop.**
+                                                                                                                                                                
+                                                                                                                                                                **This is closely followed by a 12% who buy a computer mice which will then also buy a laptop**
+                                                                                                                                                                
+                                                                                                                                                                ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Cat_Rules3 <- subset(rules_cat, items %in% "monitors")
+                                                                                                                                                              CatRules3 <- sort(Cat_Rules3, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_categories <- head(CatRules3, 5)
+                                                                                                                                                              head(top5_categories)
+                                                                                                                                                              plot(top5_categories)
+                                                                                                                                                              inspectDT(top5_categories)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              Comment:
+                                                                                                                                                                
+                                                                                                                                                                -   **Monitors is the third most bought category.**
+                                                                                                                                                                
+                                                                                                                                                                -   It is interesting to note that 10% of the purchases include buying a computer mice will also buy a monitorwhich turns into buying a laptop.
+                                                                                                                                                              
+                                                                                                                                                              -   This is closely followed by a 9% who buy a keyboard which will then also buy a laptop
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              rules_product <- apriori(product, parameter = list(support = 0.01, confidence = 0.5))
+                                                                                                                                                              sorted_rules <- sort(rules_product, by = "support", decreasing = TRUE)
+                                                                                                                                                              sorted_rules
+                                                                                                                                                              top5_products <- head(sorted_rules, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Item_Rules<- subset(rules_product, items %in% "iMac")
+                                                                                                                                                              ItemRules <- sort(Item_Rules, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_products <- head(ItemRules, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Item_Rules1<- subset(rules_product, items %in% "HP Laptop")
+                                                                                                                                                              ItemRules1 <- sort(Item_Rules1, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_products <- head(ItemRules1, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              Item_Rules2<- subset(rules_product, items %in% "CYBERPOWER Gamer Desktop")
+                                                                                                                                                              ItemRules2 <- sort(Item_Rules2, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_products <- head(ItemRules2, 5)
+                                                                                                                                                              head(top5_products)
+                                                                                                                                                              plot(top5_products)
+                                                                                                                                                              inspectDT(top5_products)
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              #2.Would Blackwell benefit from buying Electronidex?
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              ItemRules3 <- subset(rules_cat, items %in% "Speakers")
+                                                                                                                                                              sorted_ItemRules3<- sort(ItemRules3, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_Speakers <- head(sorted_ItemRules3, 5)
+                                                                                                                                                              head(top5_Speakers)
+                                                                                                                                                              plot(top5_Speakers)
+                                                                                                                                                              inspectDT(top5_Speakers)
+                                                                                                                                                              
+                                                                                                                                                              ItemRules4 <- subset(rules_cat, items %in% "External Hardrives")
+                                                                                                                                                              sorted_ItemRules4<- sort(ItemRules4, by = "support", decreasing = TRUE)
+                                                                                                                                                              top5_External_Hardrives <- head(sorted_ItemRules4, 5)
+                                                                                                                                                              head(top5_External_Hardrives)
+                                                                                                                                                              plot(top5_External_Hardrives)
+                                                                                                                                                              inspectDT(top5_External_Hardrives)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              unique(df_new)
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              categories_dict <- c("laptop" = 1650, "desktop" = 1750, "monitors" = 300, "Computer Tablets" = 500, "Computer Mice" = 80, "Keyboard" = 300, 
+                                                                                                                                                                                   "Mouse and Keyboard Combo" = 400, "Active Headphones" = 100, "Computer Headphones" = 150, "Computer Cords" = 30, 
+                                                                                                                                                                                   "Computer Stands" = 60, "Accessories" = 70, "Speakers" = 200, "Printers" = 100, "Printer Ink" = 30, 
+                                                                                                                                                                                   "External Hardrives" = 120, "Smart Home Devices" = 50)
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              df_category$Average_Price_Category_Transaction <- NA  # Create an empty "Category" column
+                                                                                                                                                              
+                                                                                                                                                              # Iterate through each row and replace "Category" values based on matching keys in categories_dict
+                                                                                                                                                              for (i in 1:nrow(df_category)) {
+                                                                                                                                                                categories <- unique(unlist(df_category[i,]))
+                                                                                                                                                                categories <- categories[!is.na(categories) & categories %in% names(categories_dict)]
+                                                                                                                                                                if (length(categories) > 0) {
+                                                                                                                                                                  df_category$Average_Price_Category_Transaction[i] <- sum(categories_dict[categories])
+                                                                                                                                                                }
+                                                                                                                                                              }
+                                                                                                                                                              
+                                                                                                                                                              df_category$Average_Price_Category <- rowSums(df_category[, "Average_Price_Category_Transaction", drop = FALSE], na.rm = TRUE)  # Calculate the row sum for the "Category" column
+                                                                                                                                                              
+                                                                                                                                                              df_category$Average_Price_Category_Transaction <- as.numeric(as.character(df_category$Average_Price_Category_Transaction))
+                                                                                                                                                              
+                                                                                                                                                              df_category <- na.omit(df_category)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              summary(df_category$Average_Price_Category_Transaction)
+                                                                                                                                                              hist(df_category$Average_Price_Category_Transaction)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              # Initialize the Pricing Strategy column
+                                                                                                                                                              df_category$Range <- ""
+                                                                                                                                                              
+                                                                                                                                                              # Set the threshold for transactions made by companies
+                                                                                                                                                              
+                                                                                                                                                              # Assign the pricing strategy categories based on the price values and transaction type
+                                                                                                                                                              df_category$Range[df_category$Range < 30] <- "Very Low Price (Light)"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 30 & df_category$Average_Price_Category_Transaction < 150] <- "Low"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 150 & df_category$Average_Price_Category_Transaction < 500] <- "Standard"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 500 & df_category$Average_Price_Category_Transaction < 1250] <- "Mid-High Price"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 1250 & df_category$Average_Price_Category_Transaction < 2000] <- "High Price"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 2000 & df_category$Average_Price_Category_Transaction < 3000] <- "Premium"
+                                                                                                                                                              
+                                                                                                                                                              df_category$Range[df_category$Average_Price_Category_Transaction >= 3000] <- "B2B"
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # Count the frequency of each range category
+                                                                                                                                                              range_counts <- table(df_category$Range)
+                                                                                                                                                              
+                                                                                                                                                              # Sort the range_counts in descending order
+                                                                                                                                                              range_counts <- sort(range_counts, decreasing = TRUE)
+                                                                                                                                                              
+                                                                                                                                                              # Create a vertical bar plot with ordered categories
+                                                                                                                                                              barplot(range_counts, main = "Range Distribution", xlab = "Range", ylab = "Count", col = "steelblue", ylim = c(0, max(range_counts)))
+                                                                                                                                                              
+                                                                                                                                                              # Calculate the percentage of each range category
+                                                                                                                                                              percentage <- round((range_counts / sum(range_counts)) * 100, 1)
+                                                                                                                                                              
+                                                                                                                                                              # Create a cross-tabulation table with percentages
+                                                                                                                                                              cross_tab <- prop.table(range_counts) * 100
+                                                                                                                                                              cross_tab <- round(cross_tab, 1)
+                                                                                                                                                              
+                                                                                                                                                              # Print the cross-tabulation table
+                                                                                                                                                              cat("\nCross-Tabulation of Range with Percentages:\n")
+                                                                                                                                                              print(cross_tab)
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              # df_category$Rules <- "Other"
+                                                                                                                                                              # 
+                                                                                                                                                              # for (i in 1:nrow(df_product)) {
+                                                                                                                                                              #   if (sum(grepl("Laptop", df_product[i, ]) | grepl("Desktop", df_product[i, ]) | grepl("Monitor", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Keyboard", df_product[i, ]) | grepl("Computer Mice", df_product[i, ]) | grepl("Computer Cords", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Mouse and Keyboard Combo", df_product[i, ]) | grepl("Computer Headphones", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Active Headphones", df_product[i, ]) | grepl("Speakers", df_product[i, ]) | grepl("Printers", df_product[i, ]) |
+                                                                                                                                                              #           grepl("Printer Ink", df_product[i, ]) | grepl("Computer Stands", df_product[i, ]) | grepl("Computer Tablets", df_product[i, ]) |
+                                                                                                                                                              #           grepl("External Hardrives", df_product[i, ]) | grepl("Smart Home Devices", df_product[i, ])) >= 4) {
+                                                                                                                                                              #     df_product$Rules[i] <- "Office"
+                                                                                                                                                              #   }
+                                                                                                                                                              # }
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                              # for (i in 1:nrow(df_)) {
+                                                                                                                                                              #   if (sum(
+                                                                                                                                                              #     grepl("Keyboard", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Mice", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Cords", df_product[i,]) |
+                                                                                                                                                              #     grepl("Mouse and Keyboard Combo", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Headphones", df_product[i,]) |
+                                                                                                                                                              #     grepl("Active Headphones", df_product[i,]) |
+                                                                                                                                                              #     grepl("Speakers", df_product[i,]) |
+                                                                                                                                                              #     grepl("Printers", df_product[i,]) |
+                                                                                                                                                              #     grepl("Printer Ink", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Stands", df_product[i,]) |
+                                                                                                                                                              #     grepl("Computer Tablets", df_product[i,]) |
+                                                                                                                                                              #     grepl("External Hardrives", df_product[i,]) |
+                                                                                                                                                              #     grepl("Smart Home Devices", df_product[i,]) |
+                                                                                                                                                              #     grepl("monitors", df_product[i,])
+                                                                                                                                                              #   ) >= 1) {
+                                                                                                                                                              #     df_product$Rules[i] <- "Casual Buyers"
+                                                                                                                                                              #   }
+                                                                                                                                                              # }
+                                                                                                                                                              
+                                                                                                                                                              # for (i in 1:nrow(df_product)) {
+                                                                                                                                                              #   if (sum(grepl("Laptop", df_product[i,]) | grepl("Desktop", df_product[i,])>= 1) {
+                                                                                                                                                              #     df_product$Rules[i] <- "Computer"
+                                                                                                                                                              #   }
+                                                                                                                                                              # }
+                                                                                                                                                              
+                                                                                                                                                              ```
+                                                                                                                                                              
+                                                                                                                                                              ```{r}
+                                                                                                                                                              
+                                                                                                                                                              # # Count the frequency of each range category
+                                                                                                                                                              # range_counts <- table(df_product$Rules)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Sort the range_counts in descending order
+                                                                                                                                                              # range_counts <- sort(range_counts, decreasing = TRUE)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Create a vertical bar plot with ordered categories
+                                                                                                                                                              # barplot(range_counts, main = "Range Distribution", xlab = "Range", ylab = "Count", col = "steelblue", ylim = c(0, max(range_counts)))
+                                                                                                                                                              # 
+                                                                                                                                                              # # Calculate the percentage of each range category
+                                                                                                                                                              # percentage <- round((range_counts / sum(range_counts)) * 100, 1)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Create a cross-tabulation table with percentages
+                                                                                                                                                              # cross_tab <- prop.table(range_counts) * 100
+                                                                                                                                                              # cross_tab <- round(cross_tab, 1)
+                                                                                                                                                              # 
+                                                                                                                                                              # # Print the cross-tabulation table
+                                                                                                                                                              # cat("\nCross-Tabulation of Range with Percentages:\n")
+                                                                                                                                                              # print(cross_tab)
+                                                                                                                                                              ```
+                                                                                                                                                              
+    
