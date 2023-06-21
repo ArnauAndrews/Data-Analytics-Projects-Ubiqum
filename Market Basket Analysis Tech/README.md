@@ -9,12 +9,12 @@ Prepared by: Report for Blackwell Arnau Andrews
 - [Market Basket Analysis](#market-basket-analysis)
 - [Interesting Patterns within Electronidex](#interesting-patterns-within-electronidex)
 - [Should Blackwell acquire Electronidex?](#should-blackwell-acquire-electronidex)
-- [Recommendations](#recommendations)
 - [Challenges & Limitations](#challenges--limitations)
 - [Categories Frequencies](#categories-frequencies)
 - [Electronidex's Best Seller Products](#electronidexs-best-seller-products)
-- [Recommendations as of January 19, 2023](#recommendations-as-of-january-19-2023)
-- [Further Steps from January onwards](#further-steps-from-january-onwards)
+- [Recommendations](#recommendations)
+- [Challenges & Limitations](#challenges--limitations)
+- [Further Steps](#further-steps)
 - [Additional Insights](#additional-insights)
 
 ## Matters on the Docket
@@ -50,26 +50,18 @@ By leveraging the rules package, we were able to efficiently analyze Electronide
 
 Through market basket analysis of Electronidex's transaction data, we have discovered several interesting patterns and item relationships. These findings shed light on customer preferences and can guide decision-making processes related to acquisition opportunities. Here are some key insights:
 
-- Best-Selling Categories: The most popular categories in Electronidex are Desktop, Laptop, and Monitor. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling categories.
+
+
+
+- **Best-Selling Categories:** The most popular categories in Electronidex are Desktop, Laptop, and Monitor. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling categories.
+
+
+  
 - Customer Segments: Electronidex serves a diverse range of customers. The market can be segmented into affluent, mid-tier, and casual buyers. By understanding these customer segments, Blackwell can tailor marketing strategies to target specific groups effectively. In particular, focusing on B2B and B2C customers and catering to the needs of gamers, high-budget buyers, and office buyers can yield significant opportunities for growth.
 
 ## Should Blackwell acquire Electronidex?
 
 Based on the insights gained from the market basket analysis, there are compelling reasons for Blackwell to consider acquiring Electronidex. The acquisition would allow Blackwell to expand its product offering, specifically in the Desktop category, which has shown strong demand. By leveraging the existing customer base and market presence of Electronidex, Blackwell can strengthen its position in the electronics retail industry.
-
-## Recommendations
-
-- Remove Least Consumed Products: Identify and remove the 10 least consumed products, as they contribute minimally to sales. This will optimize store space, reduce costs, and improve inventory management.
-- Cross-selling and Bundling: Encourage customers to purchase related products together by implementing cross-selling strategies and bundling complementary items. Offering discounts on accessories and minor products when customers buy Desktop, Monitor, or Laptop items can boost sales and increase customer satisfaction.
-- Targeted Marketing: Tailor marketing efforts towards B2B and B2C customers, with a focus on specific segments such as gamers, high-budget buyers, and office buyers. Allocate separate aisles for office setup products, gamer products, and high-budget customer products, accompanied by specialized staff to cater to their unique needs.
-
-## Challenges & Limitations
-
-While market basket analysis provides valuable insights, it is essential to acknowledge the challenges and limitations associated with this approach. Some potential challenges and limitations include:
-
-- Data Availability: The analysis heavily relies on the availability and quality of transactional data. Incomplete or inaccurate data may affect the accuracy of the results.
-- Interpretation of Associations: Associations discovered through market basket analysis represent statistical relationships and do not necessarily imply causal relationships. Care should be taken when interpreting these associations.
-- Dynamic Market: The market for electronics is dynamic, with constantly changing trends and customer preferences. Ongoing analysis and adaptation are necessary to stay aligned with market dynamics.
 
 ## Categories Frequencies
 
@@ -109,13 +101,22 @@ The top-selling products in Electronidex based on their frequency of purchase ar
 11. Microsoft Wireless Desktop Keyboard and Mouse
 12. Samsung Monitor
 
-## Recommendations as of January 19, 2023
+
+## Recommendations
 
 Based on the market basket analysis and current insights, the following recommendations are made:
 
 1. **Remove the 10 least consumed products to optimize store space, reduce costs, improve inventory management, and enhance customer satisfaction.** These 10 items combined do not have strong association rules with other products and sell only 0.2% of times combined. 
 2. **Implement cross-selling and bundling strategies by offering discounts on accessories and minor products when customers purchase Desktop, Monitor, or Laptop items.**
 3. **Devise targeted marketing campaigns tailored towards B2B and B2C customers, focusing on gamers, high-budget buyers, and office buyers.**
+
+## Challenges & Limitations
+
+While market basket analysis provides valuable insights, it is essential to acknowledge the challenges and limitations associated with this approach. Some potential challenges and limitations include:
+
+- Data Availability: The analysis heavily relies on the availability and quality of transactional data. Incomplete or inaccurate data may affect the accuracy of the results.
+- Interpretation of Associations: Associations discovered through market basket analysis represent statistical relationships and do not necessarily imply causal relationships. Care should be taken when interpreting these associations.
+- Dynamic Market: The market for electronics is dynamic, with constantly changing trends and customer preferences. Ongoing analysis and adaptation are necessary to stay aligned with market dynamics.
 
 ## Further Steps
 
