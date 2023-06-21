@@ -94,6 +94,8 @@ The frequency distribution of product categories in Electronidex's transactions 
 
 The top-selling products in Electronidex based on their frequency of purchase are:
 
+<img width="672" alt="Screenshot 2023-06-21 at 16 11 20" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/18ad4634-968b-481a-8812-37dbfa7e78ef">
+
 1. iMac
 2. HP Laptop
 3. Cyberpower Gamer Desktop
