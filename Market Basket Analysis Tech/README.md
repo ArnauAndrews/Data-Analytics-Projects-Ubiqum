@@ -6,12 +6,11 @@ Prepared by: Report for Blackwell Arnau Andrews
 
 ## Table of Contents
 - [Matters on the Docket](#matters-on-the-docket)
-- [Market Basket Analysis](#market-basket-analysis)
-- [Categories Frequencies](#categories-frequencies)
-- [Electronidex's Best Seller Products](#electronidexs-best-seller-products)
-- [Interesting Patterns within Electronidex](#interesting-patterns-within-electronidex)
+- [Market Basket Analysis and Association rules](#market-basket-analysis-and-association-rules)
+- [Best-Selling Categories](#categories-frequencies)
+- [Best-Selling Products](#electronidexs-best-seller-products)
+- [Patterns within Electronidex](#interesting-patterns-within-electronidex)
 - [Should Blackwell acquire Electronidex?](#should-blackwell-acquire-electronidex)
-- [Challenges & Limitations](#challenges--limitations)
 - [Recommendations](#recommendations)
 - [Challenges & Limitations](#challenges--limitations)
 - [Further Steps](#further-steps)
@@ -27,9 +26,21 @@ A brief look at what we will discuss in this presentation:
 - Recommendations
 - Challenges & Limitations
 
-## Market Basket Analysis
 
-Market basket analysis is a technique used to uncover relationships between products that are frequently purchased together. By analyzing customer purchase patterns, we can identify associations and use them to optimize product placement, cross-selling strategies, and marketing campaigns.
+### Market Basket Analysis and Association Rules
+
+Market basket analysis is a technique used to uncover relationships between products that are frequently purchased together. By analyzing customer purchase patterns, we can identify associations and use them to optimize product placement, cross-selling strategies, and marketing campaigns. It involves identifying associations or relationships between products that are frequently purchased together. These associations can be represented as rules. Three key metrics used to evaluate these rules are:
+
+- **Support**: The support of a rule represents the proportion of transactions in the dataset that contain both the antecedent (left-hand side) and consequent (right-hand side) items of the rule. It indicates the popularity or frequency of the rule.
+- **Confidence**: Confidence measures the conditional probability that the consequent item will be purchased given that the antecedent item is already in the basket. It indicates the strength of the rule.
+- **Lift**: Lift is the ratio of observed support to expected support if the items in the rule were independent. It shows whether the rule's antecedent and consequent items are independent or if there is a relationship between them.
+
+By analyzing these metrics, we can identify strong rules that have high support, confidence, and lift. These rules provide valuable insights for decision-making, such as optimizing product placement, designing effective cross-selling strategies, and improving marketing campaigns.
+
+In this analysis, the association rules were generated using the R programming language and the arules package. The arules package provides a comprehensive set of functions for performing market basket analysis and extracting meaningful association rules from transactional data.
+
+By leveraging the rules package, we were able to efficiently analyze Electronidex's transaction data and uncover valuable patterns and associations among the purchased items. These rules can guide decision-making processes and offer opportunities for optimization and growth.
+
 
 ## Categories Frequencies
 
@@ -70,39 +81,31 @@ The top-selling products in Electronidex based on their frequency of purchase ar
 12. Samsung Monitor
 
 
-### Market Basket Analysis and Association Rules
-
-Market basket analysis involves identifying associations or relationships between products that are frequently purchased together. These associations can be represented as rules. Three key metrics used to evaluate these rules are:
-
-- **Support**: The support of a rule represents the proportion of transactions in the dataset that contain both the antecedent (left-hand side) and consequent (right-hand side) items of the rule. It indicates the popularity or frequency of the rule.
-- **Confidence**: Confidence measures the conditional probability that the consequent item will be purchased given that the antecedent item is already in the basket. It indicates the strength of the rule.
-- **Lift**: Lift is the ratio of observed support to expected support if the items in the rule were independent. It shows whether the rule's antecedent and consequent items are independent or if there is a relationship between them.
-
-By analyzing these metrics, we can identify strong rules that have high support, confidence, and lift. These rules provide valuable insights for decision-making, such as optimizing product placement, designing effective cross-selling strategies, and improving marketing campaigns.
-
-In this analysis, the association rules were generated using the R programming language and the arules package. The arules package provides a comprehensive set of functions for performing market basket analysis and extracting meaningful association rules from transactional data.
-
-By leveraging the rules package, we were able to efficiently analyze Electronidex's transaction data and uncover valuable patterns and associations among the purchased items. These rules can guide decision-making processes and offer opportunities for optimization and growth.
-
-
 ## Interesting Patterns within Electronidex
 
 Through market basket analysis of Electronidex's transaction data, we have discovered several interesting patterns and item relationships. These findings shed light on customer preferences and can guide decision-making processes related to acquisition opportunities. Here are some key insights:
 
+- **Best-Selling Categories:** The most popular rules in categories in Electronidex are Desktop, Laptop, and Monitor. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling categories.
+
+<img width="1168" alt="Screenshot 2023-06-21 at 19 09 24" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/cb9e2bf2-4cb5-4b29-abad-7af481ab0dbd">
+
 <img width="866" alt="Screenshot 2023-06-21 at 16 19 45" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/4b17ab71-fab0-45a4-b503-d2cee58dc551">
 
-- **Best-Selling Categories:** The most popular categories in Electronidex are Desktop, Laptop, and Monitor. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling categories.
+<img width="706" alt="Screenshot 2023-06-21 at 19 16 09" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/999ff453-9079-430d-959b-9d0d1edeec26">
 
+- **Best-Selling Products:** The most popular rules in Electronidex products iMac, HP Laptop, and CYBERPOWER Gamer Desktop. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling products.
+  
+<img width="1080" alt="Screenshot 2023-06-21 at 19 10 07" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/b645764d-f837-44c4-a906-97ac8b38d337">
+- 
 <img width="862" alt="Screenshot 2023-06-21 at 16 19 36" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/8f1722cf-cc61-4886-909f-a3f2eeec78e7">
+
+<img width="703" alt="Screenshot 2023-06-21 at 19 16 19" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/f614e976-655c-4f93-9f44-fca9a3edaad1">
 
 - **Patterns within items:** 
 
 - Customer Segments: Electronidex serves a diverse range of customers. The market can be segmented into affluent, mid-tier, and casual buyers. By understanding these customer segments, Blackwell can tailor marketing strategies to target specific groups effectively. In particular, focusing on B2B and B2C customers and catering to the needs of gamers, high-budget buyers, and office buyers can yield significant opportunities for growth.
   
 <img width="860" alt="Screenshot 2023-06-21 at 16 19 21" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/8b266b91-a9bb-4c76-8c47-8b292bb6d0c9">
-
-
-- **Interesting rules**
 
 ## Should Blackwell acquire Electronidex?
 
@@ -136,4 +139,10 @@ To continue leveraging market basket analysis for growth and optimization, the f
 **Seasonality**: The next challenge is to identify seasonality shifts and adjust inventory management and pricing accordingly. Analyzing sales patterns during Winter, Summer, Christmas, and Spring Break can optimize business operations.
 
 **Location Trends**: Analyzing sales data across various store locations and online channels can provide valuable insights into regional consumer behavior. This information can be used to tailor business decisions and meet the specific needs of different regions.
+
+## Appendix
+
+
+
+
 
