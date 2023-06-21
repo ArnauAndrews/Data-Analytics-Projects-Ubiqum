@@ -89,17 +89,17 @@ Through market basket analysis of Electronidex's transaction data, we have disco
 
 <img width="1168" alt="Screenshot 2023-06-21 at 19 09 24" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/cb9e2bf2-4cb5-4b29-abad-7af481ab0dbd">
 
-<img width="866" alt="Screenshot 2023-06-21 at 16 19 45" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/4b17ab71-fab0-45a4-b503-d2cee58dc551">
-
 <img width="706" alt="Screenshot 2023-06-21 at 19 16 09" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/999ff453-9079-430d-959b-9d0d1edeec26">
+
+<img width="866" alt="Screenshot 2023-06-21 at 16 19 45" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/4b17ab71-fab0-45a4-b503-d2cee58dc551">
 
 - **Best-Selling Products:** The most popular rules in Electronidex products iMac, HP Laptop, and CYBERPOWER Gamer Desktop. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling products.
   
 <img width="1080" alt="Screenshot 2023-06-21 at 19 10 07" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/b645764d-f837-44c4-a906-97ac8b38d337">
 - 
-<img width="862" alt="Screenshot 2023-06-21 at 16 19 36" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/8f1722cf-cc61-4886-909f-a3f2eeec78e7">
-
 <img width="703" alt="Screenshot 2023-06-21 at 19 16 19" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/f614e976-655c-4f93-9f44-fca9a3edaad1">
+
+<img width="862" alt="Screenshot 2023-06-21 at 16 19 36" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/8f1722cf-cc61-4886-909f-a3f2eeec78e7">
 
 - **Patterns within items:** 
 
