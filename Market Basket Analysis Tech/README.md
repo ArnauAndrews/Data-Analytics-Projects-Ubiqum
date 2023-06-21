@@ -109,22 +109,20 @@ The top-selling products in Electronidex based on their frequency of purchase ar
 
 Based on the market basket analysis and current insights, the following recommendations are made:
 
-1. Remove the 10 least consumed products to optimize store space, reduce costs, improve inventory management, and enhance customer satisfaction.
-2. Implement cross-selling and bundling strategies by offering discounts on accessories and minor products when customers purchase Desktop, Monitor, or Laptop items.
-3. Devise targeted marketing campaigns tailored towards B2B and B2C customers, focusing on gamers, high-budget buyers, and office buyers.
+1. **Remove the 10 least consumed products to optimize store space, reduce costs, improve inventory management, and enhance customer satisfaction.** These 10 items combined do not have strong association rules with other products and sell only 0.2% of times combined. 
+2. **Implement cross-selling and bundling strategies by offering discounts on accessories and minor products when customers purchase Desktop, Monitor, or Laptop items.**
+3. **Devise targeted marketing campaigns tailored towards B2B and B2C customers, focusing on gamers, high-budget buyers, and office buyers.**
 
-## Further Steps from January onwards
+## Further Steps
 
 To continue leveraging market basket analysis for growth and optimization, the following steps are recommended:
 
-- Pin down seasonality shifts: Identify patterns of products that sell during specific times of the year, such as Winter, Summer, Christmas, and Spring Break. Optimize inventory management and adjust prices for seasonally affected products. Consider adjusting the store layout throughout different seasons to align with customer preferences.
-- Identify location trends: Analyze sales data across different store locations and online channels. Understand regional consumer behavior and tailor business decisions accordingly. This can help personalize marketing efforts, product selection, and inventory management based on regional demand.
+- **Pin down seasonality shifts:** Identify patterns of products that sell during specific times of the year, such as Winter, Summer, Christmas, and Spring Break. Optimize inventory management and adjust prices for seasonally affected products. Consider adjusting the store layout throughout different seasons to align with customer preferences.
+- **Identify location trends**: Analyze sales data across different store locations and online channels. Understand regional consumer behavior and tailor business decisions accordingly. This can help personalize marketing efforts, product selection, and inventory management based on regional demand.
 
 ## Additional Insights
 
-Seasonality: The next challenge is to identify seasonality shifts and adjust inventory management and pricing accordingly. Analyzing sales patterns during Winter, Summer, Christmas, and Spring Break can optimize business operations.
+**Seasonality**: The next challenge is to identify seasonality shifts and adjust inventory management and pricing accordingly. Analyzing sales patterns during Winter, Summer, Christmas, and Spring Break can optimize business operations.
 
-Location Trends: Analyzing sales data across various store locations and online channels can provide valuable insights into regional consumer behavior. This information can be used to tailor business decisions and meet the specific needs of different regions.
-
-Please note that this report merges information from previous reports and incorporates additional insights. Adjustments may be required to align with the presentation's design and style.
+**Location Trends**: Analyzing sales data across various store locations and online channels can provide valuable insights into regional consumer behavior. This information can be used to tailor business decisions and meet the specific needs of different regions.
 
