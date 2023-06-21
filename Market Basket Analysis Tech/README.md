@@ -31,8 +31,6 @@ A brief look at what we will discuss in this presentation:
 
 Market basket analysis is a technique used to uncover relationships between products that are frequently purchased together. By analyzing customer purchase patterns, we can identify associations and use them to optimize product placement, cross-selling strategies, and marketing campaigns.
 
-## Additional Insights
-
 ### Market Basket Analysis and Association Rules
 
 Market basket analysis involves identifying associations or relationships between products that are frequently purchased together. These associations can be represented as rules. Three key metrics used to evaluate these rules are:
