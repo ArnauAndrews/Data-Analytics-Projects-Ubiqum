@@ -50,14 +50,20 @@ By leveraging the rules package, we were able to efficiently analyze Electronide
 
 Through market basket analysis of Electronidex's transaction data, we have discovered several interesting patterns and item relationships. These findings shed light on customer preferences and can guide decision-making processes related to acquisition opportunities. Here are some key insights:
 
-
-
+<img width="866" alt="Screenshot 2023-06-21 at 16 19 45" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/4b17ab71-fab0-45a4-b503-d2cee58dc551">
 
 - **Best-Selling Categories:** The most popular categories in Electronidex are Desktop, Laptop, and Monitor. By acquiring Electronidex and expanding our portfolio with Desktop products, Blackwell can capitalize on the high demand for these items and potentially increase sales in other best-selling categories.
 
+<img width="862" alt="Screenshot 2023-06-21 at 16 19 36" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/8f1722cf-cc61-4886-909f-a3f2eeec78e7">
 
-  
+- **Patterns within items:** 
+
 - Customer Segments: Electronidex serves a diverse range of customers. The market can be segmented into affluent, mid-tier, and casual buyers. By understanding these customer segments, Blackwell can tailor marketing strategies to target specific groups effectively. In particular, focusing on B2B and B2C customers and catering to the needs of gamers, high-budget buyers, and office buyers can yield significant opportunities for growth.
+  
+<img width="860" alt="Screenshot 2023-06-21 at 16 19 21" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/8b266b91-a9bb-4c76-8c47-8b292bb6d0c9">
+
+
+- **Interesting rules**
 
 ## Should Blackwell acquire Electronidex?
 
