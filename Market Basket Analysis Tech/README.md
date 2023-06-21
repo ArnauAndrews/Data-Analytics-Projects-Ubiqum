@@ -75,6 +75,8 @@ While market basket analysis provides valuable insights, it is essential to ackn
 
 The frequency distribution of product categories in Electronidex's transactions is as follows:
 
+<img width="720" alt="Screenshot 2023-06-21 at 16 11 13" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/c3676e7f-138e-41a0-91d8-3e2cf2301092">
+
 | Category                | Frequency |
 |-------------------------|-----------|
 | Desktop                 | 0.329     |
