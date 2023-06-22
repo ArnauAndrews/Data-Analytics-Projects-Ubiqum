@@ -1,6 +1,4 @@
-## Credit One Default Rate Analysis
-
-
+# Credit One Default Rate Analysis
 
 
 ## Table of Contents
@@ -95,12 +93,6 @@ To address multicollinearity and enhance model stability and interpretability, a
 # Predictive Models
 
 ## Predictive Model Outcome
-
-
-5. [Predictive Model Outcome](#4-predicting-customer-behavior)
-   - [Feature Selection](-is-there-a-relatioonship-between-the-number-of-items-purchased-and-the-amount-spent)
-   - [Model Selection]
-   - [Classification Report]
 
 Predicting whether the client will default or not: 
 
