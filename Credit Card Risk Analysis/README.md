@@ -135,6 +135,21 @@ The table shows the top-performing models based on various evaluation metrics su
 
 ![Unknown-2](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/886086ee-7fbd-4b88-b051-5aacee4c052d)
 
+|     Class    | Precision | Recall | F1-Score | Support |
+|-------------:|----------:|-------:|---------:|--------:|
+|   Default    |   0.40    |  0.51  |   0.45   |   213   |
+| Not Default  |   0.85    |  0.79  |   0.82   |   746   |
+|-------------:|----------:|-------:|---------:|--------:|
+|   Accuracy   |           |        |   0.72   |   959   |
+|  Macro Avg   |   0.63    |  0.65  |   0.63   |   959   |
+|Weighted Avg  |   0.75    |  0.72  |   0.73   |   959   |
+
+
+The model achieved an overall accuracy of 72%, correctly predicting 72% of instances.
+The model's performance is better in predicting non-default instances compared to default instances.
+
+Given these results, an improved model will be developed using a new variable called "Class," which summarizes the financial behavior of each type of client, to identify morea accurately the clients who are going to default since these are the ones who incurr in most losses. 
+
 
 ## Predictive Model Class
 
