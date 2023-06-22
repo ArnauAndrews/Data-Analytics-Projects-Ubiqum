@@ -8,17 +8,18 @@ Prepared by: Arnau Andrews
 2. [Univariate Analysis](2-univariate-analysis)
 3. [Bivariate Analysis](3-bivariate-analysis)
 4. [Predicting Customer Behavior](#4-predicting-customer-behavior)
-   - [Do any other factors predict if a customer will buy online or in our stores?](-do-any-other-factors-predict-if-a-customer-will-buy-online-or-in-our-stores)
+   - [Is there a relationship between the number of items purchased and the amount spent?](-is-there-a-relatioonship-between-the-number-of-items-purchased-and-the-amount-spent)
+   - [Do any factors predict if a customer will buy online or in our stores?](-do-any-other-factors-predict-if-a-customer-will-buy-online-or-in-our-stores)
    - [Do customers in different regions spend more per transaction?](-do-customers-in-different-regions-spend-more-per-transaction)
    - [Are there differences in the age of customers between regions?](-are-there-differences-in-the-age-of-customers-between-regions)
-5. [Feature Selection](#5-feature-selection)
-6. [Modeling](#6-modeling)
+6. [Feature Selection](#5-feature-selection)
+7. [Modeling](#6-modeling)
    - [Age Model](-age-model)
    - [Region Model](-region-model)
    - [Status Model](-status-model)
    - [Amount Model](-amount-model)
-7. [Limitations and Challenges](#7-limitations-and-challenges)
-8. [Conclusions and Next Steps](#8-conclusions-and-next-steps)
+8. [Limitations and Challenges](#7-limitations-and-challenges)
+9. [Conclusions and Next Steps](#8-conclusions-and-next-steps)
 
 
 # Contents
@@ -27,9 +28,11 @@ Prepared by: Arnau Andrews
 
 To that end, I would like you to explore the customer transaction data we have collected from recent online and in-store sales and see if you can infer any insights about customer purchasing behavior. Specifically, I am interested in the following:
 
-1. Do customers in different regions spend more per transaction? Which regions spend the most/least?
-2. Is there a relationship between the number of items purchased and the amount spent?
-
+1. Is there a relationship between the number of items purchased and the amount spent?
+2. Do any other factors predict if a customer will buy online or in our stores?
+3. Do customers in different regions spend more per transaction? Which regions spend the most/least?
+4. Are there differences in the age of customers between regions?
+5. Build and assess models for age, region, status, and amount for future clients. 
 
 ## Variables
 
@@ -111,12 +114,21 @@ Please note the column mapping for the "In-store" and "Region" variables mention
     
 ## 4. Predicting Customer Behavior
 
-### Do any other factors predict if a customer will buy online or in our stores?
+## Is there a relationship between the number of items purchased and the amount spent?
 
-- The number of items purchased does not significantly predict the amount spent.
-- Other factors like amount spent, age, and region have more predictive power.
+![Unknown-7](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/addf319a-fedb-436a-b6db-6174c5d21dfa)
+
+- There is no relationship between the number of items purchased and the amount spent
+
+### Do any factors predict if a customer will buy online or in our stores?
+
+![Unknown-2](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/4a910f77-1a97-4127-aa6c-0a577e027c46)
+
+-Amount, age, and region.
 
 ### Do customers in different regions spend more per transaction?
+
+![Unknown](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/020f7b59-a2d1-4ff7-93b2-3c31057e2bbb)
 
 - West: Highest mean amount per person ($1283.94)
 - East: Second-highest mean amount per person ($917.97)
@@ -125,6 +137,8 @@ Please note the column mapping for the "In-store" and "Region" variables mention
 
 ### Are there differences in the age of customers between regions?
 
+![Unknown-1](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/37089ee8-622d-4343-9415-7d5362883bc8)
+
 - South: Wide age range, evenly distributed
 - West: Majority of customers aged 18 to 60, few customers above 60
 - East: Majority of customers aged 18 to 65, few customers above 65
@@ -132,6 +146,7 @@ Please note the column mapping for the "In-store" and "Region" variables mention
 
 
 ### 5 Feature Selection
+
 There is no significant correlation between the number of items purchased and either the age or the amount spent. The correlation coefficients between "Items" and "Age" and between "Items" and "Amount" are close to zero. Therefore, the variable "Items" will not be included in the modeling stage as it does not provide additional insight into customer behavior.
 There is a negative correlation of -0.28 between the age of the customer and the amount spent. This means that as the age increases, the amount spent tends to decrease.
 
@@ -140,8 +155,13 @@ There is a negative correlation of -0.28 between the age of the customer and the
 
 ### Age Model
 
+![Unknown-10](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/f9ba9100-ccd8-4d77-8d83-e66d65aa9693)
+
 - Predicting age groups based on demographic data (Region, Amount, and Status) is challenging.
-- The second model shows some improvement compared to the first model but still struggles to accurately predict age_bin categories.
+- The model shows some improvement compared to the first model but still struggles to accurately predict age_bin categories.
+
+![Unknown-4](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/ce4347de-b675-429d-9fdf-427b7c0cc7fe)
+
 - The model has low precision and recall for the "Mid" and "Young" classes, indicating difficulty in distinguishing between these age groups.
 - The overall accuracy of the second model is 0.40, an improvement from the first model's accuracy of 0.33, but still relatively low.
 
@@ -149,7 +169,13 @@ There is a negative correlation of -0.28 between the age of the customer and the
 
 ### Region Model
 
+![Unknown-8](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/77573afb-e41b-43b7-8723-23f11f13e49d)
+
+
 - The accuracy of the model is 0.64, which indicates that it performs significantly better than random guessing (25% accuracy for four regions). The precision, recall, and F1-score vary for each region:
+
+![Unknown-5](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/d94e9305-430c-45cb-bab3-539cee999e8e)
+
 - The South region shows the highest precision, recall, and F1-score, indicating that the model accurately predicts this region. This could be due to moderate correlations between age, status, amount, and the South region, as well as the fact that all purchases in the South region are made in-store.
 - The model performs relatively well for the West region with moderate precision, recall, and F1-score. The North and East regions have lower performance measures, suggesting more overlapping of variables and difficulty in accurately predicting the regions.
 
@@ -157,7 +183,12 @@ There is a negative correlation of -0.28 between the age of the customer and the
 
 ### Status Model
 
+![Unknown-9](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/418d0d79-ebf4-4c34-b46c-cd198b502d1c)
+
 - The model achieved an accuracy of 0.84, indicating that it can correctly classify most of the data points.
+
+![Unknown-6](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/a4311478-5539-42e1-b8b9-6fde5a06e6d8)
+
 - The precision and recall scores are high for both classes, indicating that the model is good at predicting positive cases for both online and onsite purchases.
 - The F1-score, which is a balance between precision and recall, is also high for both classes.
 - The model performed slightly better for online purchases, as indicated by higher precision, recall, and F1-score for that class.
