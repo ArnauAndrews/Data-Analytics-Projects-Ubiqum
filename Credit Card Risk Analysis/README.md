@@ -6,19 +6,19 @@ Table of Contents
 
 1. [Problem Description](#problem-description)
 - [Investigative Questions](#investigative-questions)
-- [Data Exploration](#data-exploration)
+2. [Data Exploration](#data-exploration)
 - [Demographic Variable Analysis](#demographic-variable-analysis)
-- [Feature Engineering](#feature-engineering)
-- [Predictive Model Outcome](#predictive-model-outcome)
+3. [Feature Engineering](#feature-engineering)
+4. [Predictive Model Outcome](#predictive-model-outcome)
 - [Feature Selection](#feature-selection)
 - [Best Model Selection](#best-model-selection)
 - [Model Evaluation](#model-evaluation)
-- [Predictive Model Class](#predictive-model-class)
+5. [Predictive Model Class](#predictive-model-class)
 - [Feature Importance](#feature-importance)
 - [Model Evaluation](#model-evaluation)
 - [Client Class Classification Report](#client-class-classification-report)
-- [Client Class Conclusions](#client-class-conclusions)
-- [Conclusions and Next Steps](#conclusions-and-next-steps)
+6. [Client Class Conclusions](#client-class-conclusions)
+7. [Conclusions and Next Steps](#conclusions-and-next-steps)
 
 
 ## Problem Description
