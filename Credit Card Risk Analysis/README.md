@@ -5,24 +5,23 @@ Table of Contents
 ## Table of Contents
 
 1. [Problem Description](#problem-description)
-2. [Investigative Questions](#investigative-questions)
-3. [Data Exploration](#data-exploration)
-4. [Demographic Variable Analysis](#demographic-variable-analysis)
-5. [Feature Engineering](#feature-engineering)
-6. [Newly created variables](#newly-created-variables)
-7. [Predictive Model Outcome](#predictive-model-outcome)
-8. [Feature Selection](#feature-selection)
-9. [Best Model Selection](#best-model-selection)
-10. [Model Evaluation](#model-evaluation)
-11. [Predictive Model Class](#predictive-model-class)
-12. [Feature Importance](#feature-importance)
-13. [Model Evaluation](#model-evaluation-1)
-14. [Client Class Classification Report](#client-class-classification-report)
-15. [Client Class Conclusions](#client-class-conclusions)
-16. [Conclusions and Next Steps](#conclusions-and-next-steps)
+- [Investigative Questions](#investigative-questions)
+- [Data Exploration](#data-exploration)
+- [Demographic Variable Analysis](#demographic-variable-analysis)
+- [Feature Engineering](#feature-engineering)
+- [Predictive Model Outcome](#predictive-model-outcome)
+- [Feature Selection](#feature-selection)
+- [Best Model Selection](#best-model-selection)
+- [Model Evaluation](#model-evaluation)
+- [Predictive Model Class](#predictive-model-class)
+- [Feature Importance](#feature-importance)
+- [Model Evaluation](#model-evaluation)
+- [Client Class Classification Report](#client-class-classification-report)
+- [Client Class Conclusions](#client-class-conclusions)
+- [Conclusions and Next Steps](#conclusions-and-next-steps)
 
 
-## 1. Problem Description
+## Problem Description
 
 This project aims to address the issue of increasing customer default rates faced by Credit One, a credit scoring service. The objective is to develop a data-driven solution to better understand the creditworthiness of customers and improve the loan approval process.
 
@@ -31,7 +30,7 @@ Over the past year, Credit One has observed a rise in the number of customers de
 This dataset pertains to a real-case scenario of a bank that went bankrupt in Taiwan in 2006, which provides additional insight into why credits were given to everyone despite their demographic variables and Payment_History. The analysis helps provide an alternative approach to what could have been done if additional measures had been taken regarding the Client Classification Reward System.
 
 
-## Investigative Questions
+### Investigative Questions
 
 To address the default rate issue, the project team will investigate the following questions:
 
@@ -41,7 +40,7 @@ To address the default rate issue, the project team will investigate the followi
 - How can we utilize proven methods to extract additional information?
 
 
-## Variable Description 
+### Variable Description 
 
 
 ID: ID of each client
