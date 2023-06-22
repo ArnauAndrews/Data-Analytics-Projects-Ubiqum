@@ -209,6 +209,9 @@ C Clients: Consume less than what they pay / Default
 D Clients: Default / Delay on Payment Time
 E Clients: Consume more than what they pay / Default / Delay on Payment Time
 
+![Unknown-2](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/886086ee-7fbd-4b88-b051-5aacee4c052d)
+
+
 ## Client Class Conclusions
 
 Based on the analysis and classification results, the following measures can be considered for existing clients:
