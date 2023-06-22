@@ -234,7 +234,7 @@ Based on the analysis and classification results, the following measures can be 
 
 These measures aim to align the credit limits of different client segments with their credit behavior, risk profiles, and ability to repay. Adjusting the limit balance based on these factors allows the bank to optimize risk exposure, minimize default rates, and maintain a healthy lending portfolio.
 
-**Conclusions and next steps**
+## Conclusions and next steps
 
 From a financial point of view, assessing risk and reward after applying the measures, the bank has achieved the following:
 
