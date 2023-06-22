@@ -142,7 +142,6 @@ Here is the table formatted in markdown syntax for the readme.md file:
 The table shows the top-performing models based on various evaluation metrics such as accuracy, balanced accuracy, ROC AUC, and F1 score. The time taken by each model for training is also provided.
 
 
-
 These results can be used to select the best model based on specific requirements and priorities.
 
 
@@ -165,6 +164,7 @@ Consumption_August: 0.03
 Mean_Payment_Amount: 0.03
 Age: 0.03
 Consumption_July: 0.03
+
 These features, when combined, provide the best predictive power for determining the client class.
 
 ## Model Evaluation
@@ -192,19 +192,21 @@ Here is the table formatted in markdown syntax for the readme.md file:
 
 The classification report provides an overview of the accuracy, recall, precision, and F1-score for each client class:
 
-markdown
-Copy code
-              precision    recall  f1-score   support
+![Unknown-3](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/99174ca2-9cbf-4514-9fa9-afcdc9704038)
 
-           A       0.85      0.74      0.79       573
-           C       0.27      0.38      0.32       127
-           D       0.37      0.47      0.41       106
-           E       0.53      1.00      0.69        27
-           S       0.84      0.79      0.81       365
+|          | precision | recall | f1-score | support |
+|----------|-----------|--------|----------|---------|
+|    A     |   0.85    |  0.74  |   0.79   |   573   |
+|    C     |   0.27    |  0.38  |   0.32   |   127   |
+|    D     |   0.37    |  0.47  |   0.41   |   106   |
+|    E     |   0.53    |  1.00  |   0.69   |   27    |
+|    S     |   0.84    |  0.79  |   0.81   |   365   |
+|----------|-----------|--------|----------|---------|
+| accuracy |           |        |   0.70   |   1198  |
+| macro avg|   0.57    |  0.67  |   0.61   |   1198  |
+|weighted avg| 0.74    |  0.70  |   0.71   |   1198  |
 
-    accuracy                           0.70      1198
-   macro avg       0.57      0.67      0.61      1198
-weighted avg       0.74      0.70      0.71      1198
+
 In this classification, the classes are defined as follows:
 
 Not Default Clients:
