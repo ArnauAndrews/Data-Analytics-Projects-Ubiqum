@@ -5,20 +5,20 @@ Table of Contents
 ## Table of Contents
 
 1. [Problem Description](#problem-description)
-- [Investigative Questions](#investigative-questions)
+   - [Investigative Questions](#investigative-questions)
 2. [Data Exploration](#data-exploration)
-- [Demographic Variable Analysis](#demographic-variable-analysis)
+   - [Demographic Variable Analysis](#demographic-variable-analysis)
 3. [Feature Engineering](#feature-engineering)
-4. [Predictive Model Outcome](#predictive-model-outcome)
-- [Feature Selection](#feature-selection)
-- [Best Model Selection](#best-model-selection)
-- [Model Evaluation](#model-evaluation)
-5. [Predictive Model Class](#predictive-model-class)
-- [Feature Importance](#feature-importance)
-- [Model Evaluation](#model-evaluation)
-- [Client Class Classification Report](#client-class-classification-report)
-6. [Client Class Conclusions](#client-class-conclusions)
-7. [Conclusions and Next Steps](#conclusions-and-next-steps)
+4. [Predictive Models](#predictive-models)
+   - [Predictive Model Outcome](#predictive-model-outcome)
+     - [Feature Selection](#feature-selection)
+     - [Model Evaluation](#model-evaluation)
+   - [Predictive Model Class](#predictive-model-class)
+     - [Feature Importance](#feature-importance)
+     - [Model Evaluation](#model-evaluation-1)
+     - [Client Class Classification Report](#client-class-classification-report)
+5. [Client Class Conclusions](#client-class-conclusions)
+6. [Conclusions and Next Steps](#conclusions-and-next-steps)
 
 
 ## Problem Description
@@ -61,7 +61,7 @@ default.payment.next.month: Default payment status (1=yes, 0=no)
 - Clients who receive larger bills tend to make larger payments.
 - Mean_Bill_Amount shows a positive correlation (0.28) with Mean_Payment_Status, indicating that higher bill amounts are associated with clients not paying on time.
 - Mean_Payment_Status has a negative correlation (-0.26) with Limit_Balance, suggesting that clients with lower credit limits are more likely to make timely payments.
-- 
+
 ## Demographic Variable Analysis
 
 **Demographic variables (Age, Sex, Education and Civil Status) do not have a statistically significant impact on whether the client will default or not having respective p-values lower than the threshold of 0.05.**
@@ -73,14 +73,9 @@ default.payment.next.month: Default payment status (1=yes, 0=no)
 
 ## Feature Engineering
 
-- Positive correlation (0.42) between Limit_Balance and Mean_Bill_Amount
-- Positive correlation (0.4) between Mean_Bill_Amount and Mean_Payment_Amount
-- Positive correlation (0.28) between Mean_Bill_Amount and Mean_Payment_Status
-- Negative correlation (-0.26) between Mean_Payment_Status and Limit_Balance
-- 
+  
 To address multicollinearity and enhance model stability and interpretability, a new variable called Mean_Payment_Status was created. This variable captures the overall payment behavior of clients across multiple months and improves the predictive power of the model.
 
-## Newly created variables 
 
 - Mean_Payment_Amount: Represents the average payment amount across six payment periods.
 - Mean_Bill_Amount: Calculates the mean bill amount across six billing periods.
