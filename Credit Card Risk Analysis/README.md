@@ -65,12 +65,12 @@ default.payment.next.month: Default payment status (1=yes, 0=no)
 - 
 ## Demographic Variable Analysis
 
-Demographic variables (Age, Sex, Education and Civil Status) do not have a statistically significant impact on whether the client will default or not having respective p-values lower than the threshold of 0.05.
+**Demographic variables (Age, Sex, Education and Civil Status) do not have a statistically significant impact on whether the client will default or not having respective p-values lower than the threshold of 0.05.**
 
-Age Category and Limit Balance: Clients in the 60-69 age range had the highest average credit limit, followed by the 30-39 age group.
-Gender and Limit Balance: Females had slightly higher average credit limits compared to males.
-Education and Limit Balance: Clients with a graduate school education had the highest average credit limit, while those with a high school education had the lowest.
-Civil Status and Limit Balance: Married clients had the highest average credit limit, followed by single clients.
+- Age Category and Limit Balance: Clients in the 60-69 age range had the highest average credit limit, followed by the 30-39 age group.
+- Gender and Limit Balance: Females had slightly higher average credit limits compared to males.
+- Education and Limit Balance: Clients with a graduate school education had the highest average credit limit, while those with a high school education had the lowest.
+- Civil Status and Limit Balance: Married clients had the highest average credit limit, followed by single clients.
 
 ## Feature Engineering
 
@@ -97,7 +97,7 @@ To address multicollinearity and enhance model stability and interpretability, a
 - E Clients: Consume more than what they pay / Default / Delay on Payment Time
 
 
-## Predictive Models
+# Predictive Models
 
 ## Predictive Model Outcome
 
@@ -110,7 +110,7 @@ To address multicollinearity and enhance model stability and interpretability, a
 Predicting whether the client will default or not: 
 
 
-## Feature Selection
+### Feature Selection
 
 The feature selection process identified the most important variables for predicting the outcome. The table below shows the selected features and their corresponding importance scores:
 
@@ -121,7 +121,7 @@ Consumption_July	0.05
 
 These three variables were found to be statistically significant in predicting the outcome. After combining them, it was discovered that Mean_Payment_Status alone is the best predictor for the outcome. This approach significantly reduced the model's complexity and multicollinearity.
 
-## Model Evaluation
+### Model Evaluation
 
 
 A comparison of various models was conducted, and the following table presents the best models based on different evaluation metrics:
@@ -142,32 +142,25 @@ Here is the table formatted in markdown syntax for the readme.md file:
 The table shows the top-performing models based on various evaluation metrics such as accuracy, balanced accuracy, ROC AUC, and F1 score. The time taken by each model for training is also provided.
 
 
-These results can be used to select the best model based on specific requirements and priorities.
 
 
-Updated model results: 
+### Classification Report Outcome
+
+![Unknown-2](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/886086ee-7fbd-4b88-b051-5aacee4c052d)
+
 
 ## Predictive Model Class
 
 
-## Feature Importance
+### Feature Importance
 
 The following features have been identified as the most statistically significant variables for predicting the client class:
 
-Consumption>Pay: 0.26
-Mean_Consumption_Amount: 0.10
-Bill_Amount1: 0.04
-Consumption_September: 0.04
-Consumption_May: 0.03
-Mean_Payment_Status: 0.03
-Consumption_August: 0.03
-Mean_Payment_Amount: 0.03
-Age: 0.03
-Consumption_July: 0.03
+![Unknown](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/86518be7-7beb-4920-9c0e-e9556224e8b9)
 
 These features, when combined, provide the best predictive power for determining the client class.
 
-## Model Evaluation
+### Model Evaluation
 
 Several classification models have been evaluated using the dataset. Here are the performance metrics of the models:
 
@@ -187,12 +180,11 @@ Here is the table formatted in markdown syntax for the readme.md file:
 | LogisticRegression       | 0.57     | 0.64              | None    | 0.60     | 0.02       |
 
 
-## Client Class Classification Report
+### Client Class Classification Report
 
 
 The classification report provides an overview of the accuracy, recall, precision, and F1-score for each client class:
 
-![Unknown-3](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/99174ca2-9cbf-4514-9fa9-afcdc9704038)
 
 |          | precision | recall | f1-score | support |
 |----------|-----------|--------|----------|---------|
