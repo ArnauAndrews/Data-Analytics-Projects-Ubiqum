@@ -62,8 +62,22 @@ Based on the analysis and forecasting results, the following recommendations are
 - Explore the use of additional variables and advanced modeling techniques to improve the accuracy of predictions.
 - Continue data collection and analysis to identify other devices' power consumption patterns in different rooms.
 - Provide clear consumption comparisons and reminders to homeowners, encouraging energy-saving behaviors.
-
+- 
 ## Conclusion
 
 This project aims to provide insights and forecasting capabilities for a sub-metering company operating in the Smart Home sector. By analyzing power consumption data, we can empower Smart Home owners with better understanding and control of their energy usage. The recommendations provided will assist the developer in offering highly efficient Smart Homes that provide owners with valuable power usage analytics.
+
+The project also proposes the development of a dashboard application that enables homeowners to manage their power consumption effectively. The dashboard app will have the following features:
+
+1. **Visualization of Power Consumption**: The app will provide intuitive visualizations that allow homeowners to monitor their power consumption patterns over time. This includes daily, monthly, and yearly views, as well as comparisons between different sub-meters and appliances.
+
+2. **Real-time Monitoring**: Homeowners will be able to track their power consumption in real-time, allowing them to identify any sudden spikes or unusual patterns. This feature promotes awareness and encourages energy-saving habits.
+
+3. **Customizable Alerts**: The dashboard app will allow homeowners to set custom thresholds for power consumption. When the consumption exceeds the specified threshold, the app will send alerts and reminders to prompt energy-saving actions.
+
+4. **Recommendations and Tips**: Based on the analysis of power consumption data, the app will provide personalized recommendations and energy-saving tips to homeowners. This will help them make informed decisions and optimize their power usage.
+
+5. **Usage Comparison**: The app will enable homeowners to compare their current power consumption with previous periods, such as the previous month or year. This feature will help identify behaviors or changes that lead to lower power usage and encourage sustainable practices.
+
+Overall, the dashboard app will serve as a powerful tool for homeowners to manage their power consumption efficiently, promote energy-saving behaviors, and contribute to a more sustainable and environmentally friendly Smart Home ecosystem.
 
