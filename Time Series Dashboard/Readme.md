@@ -1,3 +1,5 @@
+**I have developed a comprehensive time series dashboard** that enables Smart Home owners to analyze and visualize their power consumption data over time, facilitating informed decision-making and empowering them to adopt energy-saving habits.
+
 # Smart Home Power Consumption Analysis
 
 This project aims to analyze and forecast power consumption data from a large 'Smart Home' apartment housing development. The goal is to provide evidence for the adoption of electrical sub-metering devices used for power management in Smart Homes, as well as empower Smart Home owners with greater understanding and control of their power usage.
