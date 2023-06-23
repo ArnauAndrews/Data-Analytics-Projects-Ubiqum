@@ -44,12 +44,17 @@ Based on the analysis of the power consumption data, the following insights and 
 - Creating an app for homeowners to monitor power consumption in real-time can promote awareness and enable informed decisions.
 - Generating reports on the amount of power saved through the use of sub-meters would showcase the benefits to the utility company.
 
+<img width="536" alt="Screenshot 2023-06-23 at 17 19 44" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/665e13fa-2aab-4064-a3bd-155a833af64a">
+
 ## Forecasting and Analysis Summary
 
 The forecasting and analysis process included cleaning and preprocessing the dataset, followed by exploratory data analysis. The findings can be summarized as follows:
 
 - Linear models were a good fit for monthly data but performed poorly for daily frequency predictions.
 - Holt-Winters approach showed promise in predicting monthly and hourly consumption trends, but the wide confidence intervals limited their usefulness.
+
+![Unknown](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/d2954e50-f30d-4571-b838-99642db18a49)
+
 - The accuracy of predictions can be improved by incorporating additional variables such as the number of residents, outdoor temperature, electricity price, and household income changes.
 - Alternative modeling approaches, such as random forest or gradient boosting, could be explored for more accurate predictions.
 
@@ -61,23 +66,45 @@ Based on the analysis and forecasting results, the following recommendations are
 - Alternatively, reconsider the placement of the existing sub-meters to capture the most power-consuming appliances accurately.
 - Explore the use of additional variables and advanced modeling techniques to improve the accuracy of predictions.
 - Continue data collection and analysis to identify other devices' power consumption patterns in different rooms.
+
+<img width="512" alt="Screenshot 2023-06-23 at 17 19 11" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/005a1f09-1f21-4743-89ed-806e6941fd27">
+
+
 - Provide clear consumption comparisons and reminders to homeowners, encouraging energy-saving behaviors.
-- 
+
 ## Conclusion
 
 This project aims to provide insights and forecasting capabilities for a sub-metering company operating in the Smart Home sector. By analyzing power consumption data, we can empower Smart Home owners with better understanding and control of their energy usage. The recommendations provided will assist the developer in offering highly efficient Smart Homes that provide owners with valuable power usage analytics.
 
 The project also proposes the development of a dashboard application that enables homeowners to manage their power consumption effectively. The dashboard app will have the following features:
 
-1. **Visualization of Power Consumption**: The app will provide intuitive visualizations that allow homeowners to monitor their power consumption patterns over time. This includes daily, monthly, and yearly views, as well as comparisons between different sub-meters and appliances.
+1. **Visualization of Power Consumption**: The app will provide intuitive visualizations that allow homeowners to monitor their power consumption patterns over time. This includes daily, monthly, yearly, weekly, seasonal, hour views, as well as comparisons between different sub-meters and appliances.
+   
+![newplot](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/c4bb2129-dabc-4609-ad45-32f35fddcb7f)>
+
+![newplot-2](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/ec92c57d-e0ae-41d6-bca8-0faff4cf7311)
+
+![newplot-3](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/22261126-5e56-4144-a6b2-eeb09598a964)
+
+![newplot-4](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/7c93eadb-c775-486d-af50-59023c15982f)
+
+![newplot-5](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/21835956-e237-485d-8c28-01dd5694b89f)
+
+![newplot-6](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/e459bab9-3ac5-4e49-b1a9-1ef99cea6fcd)
 
 2. **Real-time Monitoring**: Homeowners will be able to track their power consumption in real-time, allowing them to identify any sudden spikes or unusual patterns. This feature promotes awareness and encourages energy-saving habits.
+
+
+https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/72efffd7-f1d1-4f59-a3f8-ac230a4c8972
 
 3. **Customizable Alerts**: The dashboard app will allow homeowners to set custom thresholds for power consumption. When the consumption exceeds the specified threshold, the app will send alerts and reminders to prompt energy-saving actions.
 
 4. **Recommendations and Tips**: Based on the analysis of power consumption data, the app will provide personalized recommendations and energy-saving tips to homeowners. This will help them make informed decisions and optimize their power usage.
 
 5. **Usage Comparison**: The app will enable homeowners to compare their current power consumption with previous periods, such as the previous month or year. This feature will help identify behaviors or changes that lead to lower power usage and encourage sustainable practices.
+
+<img width="503" alt="Screenshot 2023-06-23 at 17 19 22" src="https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/0e0c073e-fef4-443a-87de-02093ea47ff9">
+
 
 Overall, the dashboard app will serve as a powerful tool for homeowners to manage their power consumption efficiently, promote energy-saving behaviors, and contribute to a more sustainable and environmentally friendly Smart Home ecosystem.
 
