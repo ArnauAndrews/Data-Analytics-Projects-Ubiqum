@@ -51,6 +51,10 @@ The main contribution of this work is the creation and presentation of the UJIIn
 - **001-520 RSSI levels**: The most important information for WLAN fingerprinting comparison purposes. Represented as a 520-element vector of integer values, where each value corresponds to the RSSI level of a specific Wireless Access Point (WAP) identified by its MAC address. RSSI levels are measured in decibels (dBm) and range from -100 dBm (very weak signal) to 0 dBm (extremely good signal).
 - **521-523 Real-world coordinates of the sample points**: Represented by three values in each record, including longitude, latitude, and floor.
 
+**Plot of the initial dataset**
+
+![plot_rotation](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/057c5b53-f3fc-450f-8247-8774fffba51a)
+
 ## Table 1: Longitude Models
 
 |         Model         | R-Squared |    RMSE   |
@@ -94,8 +98,6 @@ To achieve the most accurate predictions, we followed a coherent order of predic
 
 Through this approach, we aimed to leverage the predictive accuracy of the models and continually improve the predictions for each subsequent variable based on the already predicted variables.
 
-![plot_rotation](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/057c5b53-f3fc-450f-8247-8774fffba51a)
-
 ## Findings and Conclusions
 
 By applying the aforementioned methodology, we were able to make predictions for the variables in a coherent order, considering their dependencies. **By leveraging the initial predictions with the highest accuracy, we improved the overall predictive performance of the model.**
@@ -104,6 +106,11 @@ By applying the aforementioned methodology, we were able to make predictions for
 - We observed that the Extra Trees Regressor performed exceptionally well in predicting the **Longitude** variable.
 
 In conclusion, our approach of iteratively predicting variables based on the best model and incorporating the predicted values into the dataset yielded improved results. This methodology can be applied to similar prediction tasks to enhance the accuracy and reliability of the predictions.
+
+**Interactive plot of the predictions**
+
+[https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/5776df6f-63a9-4f5a-9236-30f5ee04c688
+](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/20f7f4ba-c380-4614-96bf-c9139754be12)
 
 # Applications and Next Steps
 
