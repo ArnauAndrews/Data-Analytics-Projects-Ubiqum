@@ -1,3 +1,7 @@
+**Access the following link to view the full project published in RPubs**:
+
+https://rpubs.com/ArnauAndrews/1057199
+
 **I have developed a comprehensive time series dashboard** that enables Smart Home owners to analyze and visualize their power consumption data over time, facilitating informed decision-making and empowering them to adopt energy-saving habits.
 
 # Smart Home Power Consumption Analysis
