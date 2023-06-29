@@ -1,3 +1,7 @@
+**Access the following link to view the full project published in RPubs**:
+
+https://rpubs.com/ArnauAndrews/1054466
+
 # Acquisition Opportunities and Challenges of Electronidex Market Basket Analysis of Electronidex
 
 **Subtitle: Unveiling Insights from Customer Purchase Patterns**
