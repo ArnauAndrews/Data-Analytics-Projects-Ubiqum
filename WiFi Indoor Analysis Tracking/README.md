@@ -1,4 +1,4 @@
-# UJIIndoorLoc Database - Exploratory Data Analysis (EDA)
+# "Optimizing Indoor Localization: Evaluating Machine Learning Models Using a WLAN Fingerprinting Database"
 
 ## Table of Contents
 - [Goal of the Data Analysis](#goal-of-the-data-analysis)
@@ -42,6 +42,9 @@ The purpose of this research is to address the lack of a common database for com
 ## Contribution
 
 The main contribution of this work is the creation and presentation of the UJIIndoorLoc database, which is the largest and first publicly available database in the field. It covers a surface area of 108,703m2 across three buildings with 4 or 5 floors. The database contains 933 different places (reference points), with 21,049 sampled points captured for training/learning and validation/testing. The data collection involved more than 20 users and 25 different models of mobile devices.
+
+![Map-of-the-UJI-Riu-Sec-Campus-and-zoom-on-the-Tx-Buildings-Pink-refers-to-the-ESTCE-Tx](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/5844dfa4-7f4e-471d-aacf-e8867d831de3)
+
 
 ## Description of Each Variable
 
@@ -90,6 +93,8 @@ To achieve the most accurate predictions, we followed a coherent order of predic
 **Best First Model**: Extra Trees Regressor for the **Longitude** variable. We utilized this model to make predictions for Longitude using the test dataset.
 
 Through this approach, we aimed to leverage the predictive accuracy of the models and continually improve the predictions for each subsequent variable based on the already predicted variables.
+
+![plot_rotation](https://github.com/ArnauAndrews/Data-Analytics-Projects-Ubiqum/assets/132329252/057c5b53-f3fc-450f-8247-8774fffba51a)
 
 ## Findings and Conclusions
 
